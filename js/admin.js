@@ -15,6 +15,7 @@ const modalTitle = document.getElementById("modalTitle");
 const historyContent = document.getElementById("historyContent");
 
 const searchInput = document.getElementById("searchInput");
+const downloadBtn = document.getElementById("downloadBtn");
 
 let semuaData = {};
 
@@ -65,9 +66,7 @@ function renderTable(data) {
                 <button
                 class="history-btn"
                 onclick="lihatHistory('${nama}')">
-
                 Lihat
-
                 </button>
             </td>
 
@@ -75,18 +74,18 @@ function renderTable(data) {
                 <button
                 class="delete-btn"
                 onclick="hapusTentor('${nama}')">
-
                 Hapus
-
                 </button>
             </td>
 
         </tr>
         `;
+
     });
 
     totalTentor.textContent = jumlahTentor;
     totalAbsensi.textContent = jumlahAbsensi;
+
 }
 
 // ====================
@@ -96,7 +95,7 @@ function renderTable(data) {
 searchInput.addEventListener("input", () => {
 
     const keyword =
-        searchInput.value.toLowerCase();
+    searchInput.value.toLowerCase();
 
     const hasil = {};
 
@@ -127,12 +126,12 @@ function lihatHistory(nama) {
     modal.style.display = "flex";
 
     modalTitle.innerText =
-        `History ${nama}`;
+    `History ${nama}`;
 
     historyContent.innerHTML = "";
 
     const history =
-        semuaData[nama]?.history || {};
+    semuaData[nama]?.history || {};
 
     if (Object.keys(history).length === 0) {
 
@@ -140,6 +139,7 @@ function lihatHistory(nama) {
         "<p>Tidak ada data absensi.</p>";
 
         return;
+
     }
 
     Object.keys(history).forEach((id) => {
@@ -181,10 +181,10 @@ function lihatHistory(nama) {
         </div>
 
         `;
+
     });
 
 }
-
 // ====================
 // TUTUP MODAL
 // ====================
@@ -265,6 +265,76 @@ async function hapusTentor(
         alert("Gagal menghapus tentor");
 
     }
+
+}
+
+// ====================
+// DOWNLOAD EXCEL
+// ====================
+
+if (downloadBtn) {
+
+    downloadBtn.addEventListener("click", downloadExcel);
+
+}
+
+function downloadExcel() {
+
+    const data = [];
+
+    Object.keys(semuaData).forEach((nama) => {
+
+        const history =
+            semuaData[nama]?.history || {};
+
+        Object.keys(history).forEach((id) => {
+
+            const item = history[id];
+
+            data.push({
+
+                "Nama Tentor": nama,
+                "Tanggal": item.tanggal || "-",
+                "Jam Tiba": item.jamTiba || "-",
+                "Jadwal": item.jadwal || "-",
+                "Jam Selesai": item.jamSelesai || "-",
+                "Jenjang": item.jenjang || "-",
+                "Kelas": item.kelas || "-",
+                "Mapel": item.mapel || "-",
+                "Materi": item.materi || "-",
+                "Jenis": item.jenis || "-",
+                "Kendala": item.kendala || "-"
+
+            });
+
+        });
+
+    });
+
+    if (data.length === 0) {
+
+        alert("Belum ada data absensi.");
+
+        return;
+
+    }
+
+    const workbook =
+        XLSX.utils.book_new();
+
+    const worksheet =
+        XLSX.utils.json_to_sheet(data);
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        "Absensi Tentor"
+    );
+
+    XLSX.writeFile(
+        workbook,
+        "Absensi_Tentor.xlsx"
+    );
 
 }
 
