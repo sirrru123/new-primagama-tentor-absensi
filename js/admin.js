@@ -1,5 +1,4 @@
 import { db } from "./firebase.js";
-
 import {
     ref,
     onValue,
@@ -18,6 +17,64 @@ const searchInput = document.getElementById("searchInput");
 const downloadBtn = document.getElementById("downloadBtn");
 
 let semuaData = {};
+// ====================
+// LOGIN ADMIN
+// ====================
+
+const loginPage = document.getElementById("loginPage");
+const dashboard = document.getElementById("dashboard");
+const loginBtn = document.getElementById("loginBtn");
+const passwordInput = document.getElementById("adminPassword");
+const loginError = document.getElementById("loginError");
+const togglePassword = document.getElementById("togglePassword");
+
+dashboard.style.display = "none";
+
+loginBtn.addEventListener("click", loginAdmin);
+
+passwordInput.addEventListener("keypress", (e) => {
+
+    if (e.key === "Enter") {
+
+        loginAdmin();
+
+    }
+
+});
+
+togglePassword.addEventListener("click", () => {
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+        togglePassword.innerHTML = "🙈";
+
+    } else {
+
+        passwordInput.type = "password";
+        togglePassword.innerHTML = "👁";
+
+    }
+
+});
+
+function loginAdmin() {
+
+    if (passwordInput.value === "adminpg123") {
+
+        loginPage.style.display = "none";
+        dashboard.style.display = "block";
+
+    } else {
+
+        loginError.innerHTML = "Password salah!";
+        passwordInput.value = "";
+        passwordInput.focus();
+
+    }
+
+}
+
 
 // ====================
 // AMBIL DATA FIREBASE
