@@ -11,11 +11,71 @@
 </head>
 <body>
 
-<div class="container">
+<!-- =========================
+     LOGIN ADMIN
+========================== -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-card">
+
+        <h1>ABSENSI TENTOR</h1>
+
+        <h2>New Primagama Sunter Indah</h2>
+
+        <div class="line"></div>
+
+        <h3>LOGIN ADMIN</h3>
+
+        <div class="input-group">
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Masukkan Password"
+            >
+
+            <button
+                id="togglePassword"
+                type="button">
+
+                👁
+
+            </button>
+
+        </div>
+
+        <p
+        id="loginError"
+        class="login-error">
+
+        </p>
+
+        <button
+        id="loginBtn"
+        class="login-btn">
+
+            MASUK ADMIN
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     DASHBOARD
+========================== -->
+
+<div
+class="container"
+id="dashboard"
+style="display:none;">
 
     <div class="header">
 
         <h1>ABSENSI TENTOR</h1>
+
         <h2>New Primagama Sunter Indah</h2>
 
     </div>
@@ -25,13 +85,19 @@
     <div class="stats">
 
         <div class="stat-card">
+
             <h3>Total Tentor</h3>
+
             <p id="totalTentor">0</p>
+
         </div>
 
         <div class="stat-card">
+
             <h3>Total Absensi</h3>
+
             <p id="totalAbsensi">0</p>
+
         </div>
 
     </div>
@@ -47,7 +113,9 @@
         >
 
         <button id="downloadBtn">
+
             📥 Download Excel
+
         </button>
 
     </div>
@@ -73,7 +141,7 @@
 
             <tbody id="tentorTable">
 
-            </tbody>
+                            </tbody>
 
         </table>
 
@@ -81,7 +149,9 @@
 
 </div>
 
-<!-- Modal History -->
+<!-- =========================
+     MODAL HISTORY
+========================== -->
 
 <div class="modal" id="historyModal">
 
@@ -90,11 +160,15 @@
         <div class="modal-header">
 
             <h2 id="modalTitle">
+
                 History Tentor
+
             </h2>
 
             <button id="closeModal">
+
                 ✕
+
             </button>
 
         </div>
@@ -107,10 +181,16 @@
 
 </div>
 
-<!-- Library Excel -->
+<!-- =========================
+     LIBRARY EXCEL
+========================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
-<!-- Admin JS -->
+<!-- =========================
+     ADMIN JS
+========================== -->
+
 <script type="module" src="js/admin.js"></script>
 
 </body>
